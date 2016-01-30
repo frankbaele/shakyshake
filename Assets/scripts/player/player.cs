@@ -63,8 +63,6 @@ public class Player : MonoBehaviour
 			inputArray[idxDown] = true;
 		} 
 		var hori = Input.GetAxis("Horizontal_" + id);
-		Debug.Log(vert);
-		Debug.Log(hori);
 		if(hori == -1 ){
 			inputArray[idxLeft] = true;
 		} else if( hori == 1){
