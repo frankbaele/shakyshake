@@ -42,10 +42,6 @@ public class PlayerActions : PlayerActionSet
 	{
 		var actions = new PlayerActions();
 		actions.Fire.AddDefaultBinding( InputControlType.Action1 );
-		actions.Dash.AddDefaultBinding( InputControlType.Action3 );
-		actions.Dash.AddDefaultBinding( InputControlType.Back );
-		actions.Dash.AddDefaultBinding( InputControlType.System );
-		
 		actions.Left.AddDefaultBinding( InputControlType.LeftStickLeft );
 		actions.Right.AddDefaultBinding( InputControlType.LeftStickRight );
 		actions.Up.AddDefaultBinding( InputControlType.LeftStickUp );

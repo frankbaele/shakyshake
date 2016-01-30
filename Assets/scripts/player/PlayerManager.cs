@@ -15,8 +15,8 @@ public class PlayerManager : MonoBehaviour
 	
 	List<Vector3> playerPositions = new List<Vector3>()
 	{
-		new Vector3( -9, 0, 1 ),
-		new Vector3( 9, 0, 1 )
+		new Vector3( 0, 0, 0 ),
+		new Vector3( 0, 0, 0 )
     };
 	
 	void OnEnable()
@@ -141,7 +141,6 @@ public class PlayerManager : MonoBehaviour
 				actions.Device = inputDevice;
 				player.Actions = actions;
 			}
-			Debug.Log("player created");
 			players.Add(player);
 			return player;
 		}

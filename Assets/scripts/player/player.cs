@@ -8,12 +8,14 @@ public class Player : MonoBehaviour
 
 	void Start()
 	{
-
+		Events.instance.AddListener<TimerTick>(tick);
 	}
 	
 	void Update()
 	{
-
+		
 	}
-	
+	void tick(TimerTick e){
+		Debug.Log("Tick");
+	}
 }
