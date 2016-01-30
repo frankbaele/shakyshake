@@ -2,10 +2,14 @@
 using System.Collections;
 
 public class TimerTick : GameEvent {
-
-	public TimerTick()
+	public int note;
+	public int bpm;
+	public float interval;
+	public TimerTick(int note, int bpm, float interval)
 	{
-
+		this.note = note;
+		this.bpm = bpm;
+		this.interval = interval;
 	}
 }
 

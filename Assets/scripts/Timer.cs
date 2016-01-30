@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Timer : MonoBehaviour {
-	public float bpm;
+	public int bpm;
 	bool playing = false;
 	// Use this for initialization
 	void Start () {
@@ -16,10 +16,12 @@ public class Timer : MonoBehaviour {
 	}
 	
 	private IEnumerator timer(){
-		float wait = 60/bpm;
+		float interval = 60/(float)bpm/4;
+		int note = 0;
 		while(playing){
-			Events.instance.Raise(new TimerTick());
-			yield return new WaitForSeconds(wait);
+			Events.instance.Raise(new TimerTick(note, bpm, interval));
+			note = note == 15 ? 0 : note + 1;
+			yield return new WaitForSeconds(interval);
 		}
 	}
 	

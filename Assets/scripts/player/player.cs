@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 		
 	}
 	void tick(TimerTick e){
-		Debug.Log("Tick");
+		
+		
 	}
 }
