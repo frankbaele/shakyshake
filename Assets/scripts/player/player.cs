@@ -163,4 +163,9 @@ public class Player : MonoBehaviour
 			checkCommand();
 		}
 	}
+
+    public int getCurrentLevel()
+    {
+        return level;
+    }
 }

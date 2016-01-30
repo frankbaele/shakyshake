@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class SoundManager : MonoBehaviour {
+
 	private AudioSource audio;
 	public AudioClip clap;
 	public AudioClip closed;
@@ -15,10 +16,20 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip rim;
 	public AudioClip shake;
 	public AudioClip snare;
+
+    private GameObject[] players; //all players or should we just put 1?
+
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource>();
 		Events.instance.AddListener<TimerTick>(tick);
+        //GameObject playerObject;
+        //GameObject[] objArr = GameObject.FindGameObjectsWithTag("Player");
+        //for (int i = 0; i < objArr.Length; i++)
+        //{
+            //players[i] = (Player) objArr[i];
+        //}
+       players = GameObject.FindGameObjectsWithTag("Player");
 	}
 	
 	// Update is called once per frame
@@ -29,19 +40,31 @@ public class SoundManager : MonoBehaviour {
 		if(e.note%2 == 0){
 			audio.PlayOneShot(kick, 1F);
 		}
-		if(e.note%3 == 0){
+   
+		if(atLeastOnePlayerAtLevel(players, 2) && e.note%3 == 0){
 			audio.PlayOneShot(closed, 1F);
 		}
-		if(e.note == 4){
+		if(atLeastOnePlayerAtLevel(players, 2) && e.note == 4){
 			audio.PlayOneShot(snare, 1F);
 		}
-		if(e.note%2 == 0){
+		if(atLeastOnePlayerAtLevel(players, 3) && e.note%2 == 0){
 			audio.PlayOneShot(rim, 1F);
 		}
-		if(e.note%1 == Random.Range(0,2)){
+		if(atLeastOnePlayerAtLevel(players, 3) && e.note%1 == Random.Range(0,2)){
 			audio.PlayOneShot(shake, 1F);
 			audio.PlayOneShot(clap, 0.2F);
 		}
 
 	}
+
+    private bool atLeastOnePlayerAtLevel(GameObject[] playerObjs, int level)
+    {
+        for(int i = 0; i < playerObjs.Length; i++)
+        {
+            //wow that line is ugly. Why do I need to get the parent through the transform anyway?
+            return playerObjs[i].transform.parent.gameObject.GetComponent<Player>().getCurrentLevel() >= level;
+        }
+
+        return false;
+    }
 }
