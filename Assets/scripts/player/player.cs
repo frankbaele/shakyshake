@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
+using InControl;
 using System.Collections;
+public class Player : MonoBehaviour
+{
+	public int id;
+	public PlayerActions Actions { get; set; }
 
-public class player : MonoBehaviour {
+	void Start()
+	{
 
-	// Use this for initialization
-	void Start () {
-	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+	{
+
 	}
+	
 }
