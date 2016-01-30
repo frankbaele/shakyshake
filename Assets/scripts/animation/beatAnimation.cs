@@ -24,7 +24,7 @@ public class beatAnimation : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        r.sprite = frames[frameIndex];
+        //r.sprite = frames[frameIndex];
 
     }
 
@@ -35,11 +35,11 @@ public class beatAnimation : MonoBehaviour {
 
         }
             //go to next step in animation
-            frameIndex = frameIndex % frames.Length;
-            Debug.Log("index" + frameIndex);
+            //frameIndex = frameIndex % frames.Length;
+            //Debug.Log("index" + frameIndex);
             //r.sprite = frames[frameIndex];
 
-            frameIndex++;
+            //frameIndex++;
         shamanAnimation.GetComponent<Animator>().Play("Shaman", 0, 5f / 7f);
     }
 }
