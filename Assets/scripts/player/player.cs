@@ -5,6 +5,8 @@ using System.Linq;
 public class Player : MonoBehaviour
 {
 	public string id;
+
+    //Player input
 	bool[] inputArray = new bool[4];
 	int idxUp = 0;
 	int idxDown = 1;
@@ -13,7 +15,14 @@ public class Player : MonoBehaviour
 	bool dpadVertPressed = false;
 	bool dpadHorzPressed = false;
 	Queue<int[]> queue = new Queue<int[]>();
-	void Start()
+
+    //Player progression
+    private int level = OUTER_CIRCLE;
+    private static int OUTER_CIRCLE = 1;
+    private static int MIDDLE_CIRCLE = 2;
+    private static int INNER_CIRCLE = 3;
+
+    void Start()
 	{
 		Events.instance.AddListener<TimerTick>(tick);
 		
