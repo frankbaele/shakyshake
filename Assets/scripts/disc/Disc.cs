@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Holoville.HOTween;
 public class Disc : MonoBehaviour
 {
 	public float speed = 0f;
@@ -15,10 +16,18 @@ public class Disc : MonoBehaviour
 		discRend.enabled = false;
 	}
 	
-	public void fireDisc(Vector2 position, Vector2 velocity)
+	public void fireDisc(Vector2 position, Vector2 velocity, float time)
 	{
 		rb.transform.position = position;
-		rb.velocity = velocity * speed;
+		//rb.velocity = velocity * speed;
+		var temp = velocity * speed;
+		HOTween.To(rb.transform, time, new TweenParms()
+			.Prop("position", new Vector3(position.x + temp.x, position.y + temp.y, 0))
+			.Ease(EaseType.Linear)
+			.OnComplete(()=>{
+					destroyed = true;
+				})
+		);
 		discRend.enabled = true;
 	}
 

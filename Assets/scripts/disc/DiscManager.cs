@@ -26,10 +26,9 @@ public class DiscManager : MonoBehaviour
 	void fireDisc (DiscFired e)
 	{
 		var newDisc = createDisc();
-		newDisc.fireDisc(e.position, e.velocity);
+		newDisc.fireDisc(e.position, e.velocity, e.time);
 	}
 	
-
 	Disc createDisc()
 	{
 		var gameObject = (GameObject)Instantiate(discPrefab);

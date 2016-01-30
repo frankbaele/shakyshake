@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	int idxRight = 3;
 	bool vertPressed = false;
 	bool horiPressed = false;
+	GameObject shaman;
 	Queue<int[]> queue = new Queue<int[]>();
 
     //Player progression
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     void Start()
 	{
 		Events.instance.AddListener<TimerTick>(tick);
-		
+		shaman = transform.Find("Shaman").gameObject;
 		// quickly add 4 empty commands
 		queue.Enqueue(new int[0]);
 		queue.Enqueue(new int[0]);
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
 		return randomNumbers;
 	}
 	
-	void addCommand(){
+	void addCommand(float wait){
 		var rNumbers = randomNumbers(2);
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
 			if(rStrings[i] == "down"){
 				y = -1;
 			}
-			Events.instance.Raise(new DiscFired(new Vector2(0,0), new Vector2(x,y)));
+			Events.instance.Raise(new DiscFired(shaman.transform.position, new Vector2(x,y), wait));
 		}
 		queue.Enqueue(rNumbers);
 	}
@@ -157,7 +158,7 @@ public class Player : MonoBehaviour
 	
 	void tick(TimerTick e){
 		if(e.note%4 == 0){
-			addCommand();
+			addCommand(e.interval*4);
 			checkCommand();
 		}
 	}
