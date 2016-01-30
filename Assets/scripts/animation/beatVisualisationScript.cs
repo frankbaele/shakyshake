@@ -6,7 +6,7 @@ public class beatVisualisationScript : MonoBehaviour {
     public GameObject beatVisualizerPrefab; // private or public?
 
     private bool isVisible;
-    private Vector3 position;
+    private Vector2 position;
 	private Renderer r;
 
 	// Use this for initialization
