@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
 	int idxDown = 1;
 	int idxLeft = 2;
 	int idxRight = 3;
-	bool dpadVertPressed = false;
-	bool dpadHorzPressed = false;
+	bool vertPressed = false;
+	bool horiPressed = false;
 	Queue<int[]> queue = new Queue<int[]>();
 
     //Player progression
@@ -56,25 +56,19 @@ public class Player : MonoBehaviour
 			if (Input.GetButtonDown("Right_" + id))
 				inputArray[idxRight] = true;
 		}
-		var dpadVert = Input.GetAxis("Vertical_" + id);
-		if(dpadVert == 1 && !dpadVertPressed){
+		var vert = Input.GetAxis("Vertical_" + id);
+		if(vert == 1){
 			inputArray[idxUp] = true;
-			dpadVertPressed = true;
-		} else if( dpadVert == -1 && !dpadVertPressed){
+		} else if( vert == -1){
 			inputArray[idxDown] = true;
-			dpadVertPressed = true;
-		} else if(dpadVert == 0){
-			dpadVertPressed = false;
-		}
-		var dpadHor = Input.GetAxis("Horizontal_" + id);
-		if(dpadHor == -1 && !dpadHorzPressed){
+		} 
+		var hori = Input.GetAxis("Horizontal_" + id);
+		Debug.Log(vert);
+		Debug.Log(hori);
+		if(hori == -1 ){
 			inputArray[idxLeft] = true;
-			dpadHorzPressed = true;
-		} else if( dpadHor == 1&& !dpadHorzPressed){
+		} else if( hori == 1){
 			inputArray[idxRight] = true;
-			dpadHorzPressed = true;
-		} else if(dpadHor == 0){
-			dpadHorzPressed = false;
 		}
 	}
 	
@@ -93,10 +87,25 @@ public class Player : MonoBehaviour
 	}
 	
 	void addCommand(){
-		var rNumbers = randomNumbers(1);
+		var rNumbers = randomNumbers(2);
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
-			Debug.Log(rStrings[i]);
+			var x = 0;
+			var y = 0;
+			
+			if(rStrings[i] == "left"){
+				x = -1;
+			}
+			if(rStrings[i] == "right"){
+				x = 1;
+			}
+			if(rStrings[i] == "up"){
+				y = 1;
+			}
+			if(rStrings[i] == "down"){
+				y = -1;
+			}
+			Events.instance.Raise(new DiscFired(new Vector2(0,0), new Vector2(x,y)));
 		}
 		queue.Enqueue(rNumbers);
 	}
@@ -137,15 +146,13 @@ public class Player : MonoBehaviour
 			}
 			inputArray[firstElement[i]] = false;
 		}
-			/*
-			for(var i = 0; i < inputArray.Length; i++)
-			{
-				if(!inputArray[i]){
-					correct = false;
-				}
+		for(var i = 0; i < inputArray.Length; i++)
+		{
+			if(!inputArray[i]){
+				correct = false;
 			}
-			*/
-		Debug.Log(correct);
+		}
+		//Debug.Log(correct);
 		resetInput();
 		
 	}

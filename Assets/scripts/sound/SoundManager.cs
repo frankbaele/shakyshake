@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SoundManager : MonoBehaviour {
-private AudioSource audio;
+	private AudioSource audio;
 	public AudioClip clap;
 	public AudioClip closed;
 	public AudioClip crash;
