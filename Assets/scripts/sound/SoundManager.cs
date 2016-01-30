@@ -59,14 +59,12 @@ public class SoundManager : MonoBehaviour {
 
     private bool atLeastOnePlayerAtLevel(GameObject[] playerObjs, int level)
     {
+        bool result = false; 
         for(int i = 0; i < playerObjs.Length; i++)
         {
-           // playerObjs[i]
-            //wow that line is ugly. Why do I need to get the parent through the transform anyway?
-           // GameObject parent = playerObjs[i].transform.parent.gameObject;
-           // return parent.GetComponent<Player>().getCurrentLevel() >= level;
+           result = playerObjs[i].GetComponent<Player>().getCurrentLevel() >= level;
         }
 
-        return false;
+        return result;
     }
 }
