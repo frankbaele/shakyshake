@@ -35,7 +35,7 @@ private AudioSource audio;
 		if(e.note == 3){
 			audio.PlayOneShot(perc1, 1F);
 		}
-		if(e.note == 2 || e.note == 2){
+		if(e.note == 2 || e.note == 6){
 			audio.PlayOneShot(rim, 1F);
 		}
 	}

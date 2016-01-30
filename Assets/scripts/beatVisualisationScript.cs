@@ -45,8 +45,4 @@ public class beatVisualisationScript : MonoBehaviour {
         gameObject.GetComponent<Renderer>().enabled = false;
         isVisible = false;
     }
-
-
-
-   
 }
