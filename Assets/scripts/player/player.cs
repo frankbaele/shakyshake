@@ -5,21 +5,23 @@ using System.Linq;
 public class Player : MonoBehaviour
 {
 	public string id;
-	bool left = false;
-	bool right = false;
-	bool up = false;
-	bool down = false;
+	bool[] inputArray = new bool[4];
+	int idxUp = 0;
+	int idxDown = 1;
+	int idxLeft = 2;
+	int idxRight = 3;
 	bool dpadVertPressed = false;
 	bool dpadHorzPressed = false;
-	List<string[]> queue = new List<string[]>();
+	Queue<int[]> queue = new Queue<int[]>();
 	void Start()
 	{
 		Events.instance.AddListener<TimerTick>(tick);
+		
 		// quickly add 4 empty commands
-		queue.Add(new string[0]);
-		queue.Add(new string[0]);
-		queue.Add(new string[0]);
-		queue.Add(new string[0]);
+		queue.Enqueue(new int[0]);
+		queue.Enqueue(new int[0]);
+		queue.Enqueue(new int[0]);
+		queue.Enqueue(new int[0]);
 	}
 	
 	void Update()
@@ -27,39 +29,40 @@ public class Player : MonoBehaviour
 		checkInput();
 	}
 	
-	void checkInput(){
-		left = false;
-		right = false;
-		up = false;
-		down = false;
+	void resetInput(){
+		for(int i = 0; i < inputArray.Length; i++){
+			inputArray[i] = false;
+		}
+	}
 	
+	void checkInput(){
 		if(Input.anyKey)
 		{
 			if (Input.GetButtonDown("Up_" + id))
-				up = true;
+				inputArray[idxUp] = true;
 			if (Input.GetButtonDown("Down_" + id))
-				down = true;
+				inputArray[idxDown] = true;
 			if (Input.GetButtonDown("Left_" + id))
-				left = true;
+				inputArray[idxLeft] = true;
 			if (Input.GetButtonDown("Right_" + id))
-				right = true;
+				inputArray[idxRight] = true;
 		}
 		var dpadVert = Input.GetAxis("Vertical_" + id);
 		if(dpadVert == 1 && !dpadVertPressed){
-			up = true;
+			inputArray[idxUp] = true;
 			dpadVertPressed = true;
 		} else if( dpadVert == -1 && !dpadVertPressed){
-			down = true;
+			inputArray[idxDown] = true;
 			dpadVertPressed = true;
 		} else if(dpadVert == 0){
 			dpadVertPressed = false;
 		}
 		var dpadHor = Input.GetAxis("Horizontal_" + id);
 		if(dpadHor == -1 && !dpadHorzPressed){
-			left = true;
+			inputArray[idxLeft] = true;
 			dpadHorzPressed = true;
 		} else if( dpadHor == 1&& !dpadHorzPressed){
-			right = true;
+			inputArray[idxRight] = true;
 			dpadHorzPressed = true;
 		} else if(dpadHor == 0){
 			dpadHorzPressed = false;
@@ -79,10 +82,18 @@ public class Player : MonoBehaviour
 		}
 		return randomNumbers;
 	}
-
-	string[] randomInput(int number){
-		var numbers = randomNumbers(number);
-		string[] input = new string[number];
+	
+	void addCommand(){
+		var rNumbers = randomNumbers(1);
+		var rStrings = stringInput(rNumbers);
+		for(int i = 0; i < rStrings.Length; i++){
+			Debug.Log(rStrings[i]);
+		}
+		queue.Enqueue(rNumbers);
+	}
+	
+	string[] stringInput(int[] numbers){
+		string[] input = new string[numbers.Length];
 		
 		for(var i = 0; i< numbers.Length; i++){
 			switch (numbers[i])
@@ -103,12 +114,33 @@ public class Player : MonoBehaviour
 		}
 		return input;
 	}
-	void addCommand(){
-		queue.Add(randomInput(1));
+	
+	void checkCommand()
+	{
+
+		var firstElement = queue.Dequeue();
+		bool correct = true;
+		
+		for(var i = 0; i < firstElement.Length; i++)
+		{
+			if(!inputArray[firstElement[i]]){
+				correct = false;
+			}
+			inputArray[firstElement[i]] = false;
+		}
+			/*
+			for(var i = 0; i < inputArray.Length; i++)
+			{
+				if(!inputArray[i]){
+					correct = false;
+				}
+			}
+			*/
+		Debug.Log(correct);
+		resetInput();
+		
 	}
-	void checkCommand(){
-		var lastElement = queue.Last();
-	}
+	
 	void tick(TimerTick e){
 		if(e.note%4 == 0){
 			addCommand();
