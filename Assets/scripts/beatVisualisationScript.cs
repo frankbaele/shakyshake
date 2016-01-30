@@ -27,11 +27,9 @@ public class beatVisualisationScript : MonoBehaviour {
 	    if(e.note%2 == 0){
 		    if (isVisible)
 		    {
-		    	Debug.Log("hide");
 			    hide();
 			    
 		    } else {
-			    Debug.Log("show");
 			    show();
 		    }
 	    }
