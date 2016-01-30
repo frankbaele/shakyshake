@@ -7,6 +7,9 @@ public class beatAnimation : MonoBehaviour {
 
     private int frameIndex = 0;
     private SpriteRenderer r;
+    private bool continueAnimation = false;
+    int count = 0;
+    private GameObject shamanAnimation;
     //private Animator anim;
 
     // Use this for initialization
@@ -15,28 +18,28 @@ public class beatAnimation : MonoBehaviour {
        // anim = GetComponent<Animator>();
         //anim.StartPlayback();
         Events.instance.AddListener<TimerTick>(tick);
+        shamanAnimation = GameObject.Find("ShamanAnimation");
     }
 
     // Update is called once per frame
     void Update() {
-     
-      
-        //r.material.mainTexture = frames[frameIndex]
+
+        //r.sprite = frames[frameIndex];
 
     }
 
     void tick(TimerTick e)
-    {
-        if(e.note % 4 == 0)
+    {   
+        if(count == 4)
         {
-            //go to next step in animation
-            frameIndex = frameIndex % frames.Length;
-            Debug.Log("index" + frameIndex);
-            r.sprite = frames[frameIndex];
 
-            frameIndex++;
         }
-        
-    
+            //go to next step in animation
+            //frameIndex = frameIndex % frames.Length;
+            //Debug.Log("index" + frameIndex);
+            //r.sprite = frames[frameIndex];
+
+            //frameIndex++;
+        shamanAnimation.GetComponent<Animator>().Play("Shaman", 0, 5f / 7f);
     }
 }
