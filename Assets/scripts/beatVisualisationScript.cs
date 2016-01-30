@@ -7,42 +7,46 @@ public class beatVisualisationScript : MonoBehaviour {
 
     private bool isVisible;
     private Vector3 position;
-    private GameObject visualisationObject;
-
+	private Renderer r;
 
 	// Use this for initialization
 	void Start () {
+		r = GetComponent<Renderer>();
         Events.instance.AddListener<TimerTick>(tick);
         position = GetComponent<Transform>().position;
-        visualisationObject = (GameObject)Instantiate(beatVisualizerPrefab, position, Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update () {
 
-        //this will hide too fast. it will only show 1 frame
-        if (isVisible)
-        {
-            hide(visualisationObject);
-
-        }
 	
 	}
 
     void tick(TimerTick e)
     {
-        show(visualisationObject);
+	    if(e.note%2 == 0){
+		    if (isVisible)
+		    {
+		    	Debug.Log("hide");
+			    hide();
+			    
+		    } else {
+			    Debug.Log("show");
+			    show();
+		    }
+	    }
+
     }
 
-    private void show(GameObject gameObject)
+    private void show()
     {
-        gameObject.GetComponent<Renderer>().enabled = true;
+	    r.enabled = true;
         isVisible = true;
     }
 
-    private void hide(GameObject gameObject)
+    private void hide()
     {
-        gameObject.GetComponent<Renderer>().enabled = false;
+	    r.enabled = false;
         isVisible = false;
     }
 }
