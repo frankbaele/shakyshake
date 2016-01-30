@@ -26,17 +26,22 @@ private AudioSource audio;
 	
 	}
 	void tick(TimerTick e){
-		if(e.note%4 == 0){
+		if(e.note%2 == 0){
 			audio.PlayOneShot(kick, 1F);
+		}
+		if(e.note%3 == 0){
+			audio.PlayOneShot(closed, 1F);
 		}
 		if(e.note == 4){
 			audio.PlayOneShot(snare, 1F);
 		}
-		if(e.note == 3){
-			audio.PlayOneShot(perc1, 1F);
-		}
-		if(e.note == 2 || e.note == 6){
+		if(e.note%2 == 0){
 			audio.PlayOneShot(rim, 1F);
 		}
+		if(e.note%1 == Random.Range(0,2)){
+			audio.PlayOneShot(shake, 1F);
+			audio.PlayOneShot(clap, 0.2F);
+		}
+
 	}
 }

@@ -24,7 +24,7 @@ public class beatVisualisationScript : MonoBehaviour {
 
     void tick(TimerTick e)
     {
-	    if(e.note%2 == 0){
+	    if(e.note%1 == 0){
 		    if (isVisible)
 		    {
 			    hide();

@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour {
 	}
 	
 	void startTimer(){
-		interval =  60/(float)bpm/4;
+		interval =  60/(float)bpm/2;
 		InvokeRepeating("tick", 0, interval);
 	}
 	void stopTimer(){
