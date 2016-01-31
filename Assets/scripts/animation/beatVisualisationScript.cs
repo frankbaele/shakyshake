@@ -3,8 +3,9 @@ using System.Collections;
 
 public class beatVisualisationScript : MonoBehaviour {
 
-    public GameObject beatVisualizerPrefab; // private or public?
-
+	public Sprite sprite_passive;
+	public Sprite sprite_color_1;
+	public Sprite sprite_color_2;
     private bool isVisible;
     private Vector2 position;
 	private Renderer r;
@@ -13,7 +14,8 @@ public class beatVisualisationScript : MonoBehaviour {
 	void Start () {
 		r = GetComponent<Renderer>();
         Events.instance.AddListener<TimerTick>(tick);
-        position = GetComponent<Transform>().position;
+		position = GetComponent<Transform>().position;
+		GetComponent<SpriteRenderer>().sprite = sprite_passive;
     }
 
     // Update is called once per frame
@@ -25,26 +27,9 @@ public class beatVisualisationScript : MonoBehaviour {
     void tick(TimerTick e)
     {
 	    if(e.note%2 == 0){
-		    if (isVisible)
-		    {
-			    hide();
-			    
-		    } else {
-			    show();
-		    }
+
 	    }
 
     }
 
-    private void show()
-    {
-	    r.enabled = true;
-        isVisible = true;
-    }
-
-    private void hide()
-    {
-	    r.enabled = false;
-        isVisible = false;
-    }
 }

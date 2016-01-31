@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 	int idxDown = 1;
 	int idxLeft = 2;
 	int idxRight = 3;
-	bool vertPressed = false;
-	bool horiPressed = false;
 	GameObject shaman;
 	Queue<int[]> queue = new Queue<int[]>();
 
@@ -151,7 +149,7 @@ public class Player : MonoBehaviour
 				correct = false;
 			}
 		}
-		Debug.Log(correct);
+		//Debug.Log(correct);
 		resetInput();
 		
 	}
