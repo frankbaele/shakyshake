@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void addCommand(float wait){
-		var rNumbers = randomNumbers(Random.Range(1,4));
+		var rNumbers = randomNumbers(Random.Range(1,3));
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
 			var x = 0;
