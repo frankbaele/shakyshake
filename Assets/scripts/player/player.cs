@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
 	
 	void tick(TimerTick e){
 		if(e.note%4 == 0){
-			addCommand(e.interval*4);
+			addCommand(e.interval*4.5f);
 			checkCommand();
 		}
 	}
