@@ -7,7 +7,8 @@ public class beatAnimation : MonoBehaviour {
 
     private int frameIndex = 0;
     private SpriteRenderer r;
-    private Animator anim;
+	private Animator anim;
+	private bool playing;
     private bool continueAnimation = false;
     int count = 0;
 
@@ -15,7 +16,8 @@ public class beatAnimation : MonoBehaviour {
     void Start () {
         r = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        Events.instance.AddListener<TimerTick>(tick);
+	    Events.instance.AddListener<TimerTick>(tick);
+
     }
 
     // Update is called once per frame
@@ -24,7 +26,11 @@ public class beatAnimation : MonoBehaviour {
     }
 
     void tick(TimerTick e)
-    {   
-        anim.Play("Shaman", 0, 5f / 7f);
+	{   
+		if(!playing){
+			anim.Play("Shaman");
+			playing = true;
+		}
+		anim.speed = 1/e.interval*2/8;
     }
 }
