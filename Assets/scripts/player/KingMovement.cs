@@ -22,7 +22,8 @@ public class KingMovement : MonoBehaviour {
     private static int OUTER_CIRCLE = 1;
     private static int MIDDLE_CIRCLE = 2;
     private static int INNER_CIRCLE = 3;
-    private int points; 
+    private int points;
+    private int previousPoints;
 
     // Use this for initialization
     void Start () {
@@ -32,16 +33,19 @@ public class KingMovement : MonoBehaviour {
         beatTurningScript = transform.parent.GetComponentInParent<beatTurning>();
         playerScript = GameObject.Find("Player" + player).GetComponent<Player>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
     void tick(TimerTick e)
     {
+        previousPoints = points;
         points = playerScript.points;
         Debug.Log("points: " + points);
+        correctInput = points > previousPoints;
+
         //if (Input.GetKey(KeyCode.Space) && e.note % 2 == 0) // for testing
         if (correctInput && e.note%2 == 0)
         {
