@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
 		}
 		// otherwise no action is requiered
 		if(firstElement.Length > 0){
+			Events.instance.Raise(new indicatorEvent(correct, id));
 			if(correct){
 				points++;
 			} else {

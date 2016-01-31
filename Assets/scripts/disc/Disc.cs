@@ -11,7 +11,6 @@ public class Disc : MonoBehaviour
 
 	void Awake()
 	{
-
 		Events.instance.AddListener<TimerTick>(tick);
 	}
 	
