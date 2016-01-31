@@ -29,8 +29,8 @@ public class beatAnimation : MonoBehaviour {
 	{   
 		if(!playing){
 			anim.Play("Shaman");
+			anim.speed = 1/e.interval*2/8;
 			playing = true;
 		}
-		anim.speed = 1/e.interval*2/8;
     }
 }

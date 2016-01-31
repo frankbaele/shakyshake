@@ -41,16 +41,16 @@ public class SoundManager : MonoBehaviour {
 			audio.PlayOneShot(kick, 1F);
 		}
    
-		if(atLeastOnePlayerAtLevel(players, 2) && e.note%3 == 0){
+		if( e.note%3 == 0){
 			audio.PlayOneShot(closed, 1F);
 		}
-		if(atLeastOnePlayerAtLevel(players, 2) && e.note == 4){
+		if(e.note == 4){
 			audio.PlayOneShot(snare, 1F);
 		}
-		if(atLeastOnePlayerAtLevel(players, 3) && e.note%2 == 0){
+		if(e.note%2 == 0){
 			audio.PlayOneShot(rim, 1F);
 		}
-		if(atLeastOnePlayerAtLevel(players, 3) && e.note%1 == Random.Range(0,2)){
+		if( e.note%1 == Random.Range(0,2)){
 			audio.PlayOneShot(shake, 1F);
 			audio.PlayOneShot(clap, 0.2F);
 		}

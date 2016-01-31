@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void addCommand(float wait){
-		var rNumbers = randomNumbers(2);
+		var rNumbers = randomNumbers(1);
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
 			var x = 0;
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
 				correct = false;
 			}
 		}
-		//Debug.Log(correct);
+		Debug.Log(correct);
 		resetInput();
 		
 	}
