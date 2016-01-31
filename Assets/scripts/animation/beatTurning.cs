@@ -17,7 +17,7 @@ public class beatTurning : MonoBehaviour {
 	
 	void tick (TimerTick e){
 		if(e.note%2 == 0){
-			HOTween.To(transform, e.interval*1.5f, new TweenParms()
+			HOTween.To(transform, e.interval, new TweenParms()
 				.Prop("rotation", new Vector3(0,0, gameObject.transform.rotation.eulerAngles.z + (22.5f * (Random.Range(0,3) - 1))))
 				.Ease(EaseType.EaseOutBounce));
 		}

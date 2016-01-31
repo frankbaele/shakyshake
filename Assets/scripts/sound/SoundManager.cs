@@ -54,9 +54,6 @@ public class SoundManager : MonoBehaviour {
 			audio.PlayOneShot(shake, 1F);
 			audio.PlayOneShot(clap, 0.2F);
 		}
-		if( e.note%2 == Random.Range(0,2)){
-			audio.PlayOneShot(perc1, 1F);
-		}
 
 	}
 

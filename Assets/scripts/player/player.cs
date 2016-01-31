@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void addCommand(float wait){
-		var rNumbers = randomNumbers(2);
+		var rNumbers = randomNumbers(Random.Range(1,4));
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
 			var x = 0;
@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
 	
 	void tick(TimerTick e){
 		if(e.note%4 == 0){
-			addCommand(e.interval*4.5f);
+			addCommand(e.interval*4f);
 			checkCommand();
 		}
 	}
