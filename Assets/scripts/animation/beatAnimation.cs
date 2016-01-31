@@ -5,16 +5,12 @@ public class beatAnimation : MonoBehaviour {
 
     public Sprite[] frames;
 
-    private int frameIndex = 0;
-    private SpriteRenderer r;
 	private Animator anim;
 	private bool playing;
-    private bool continueAnimation = false;
-    int count = 0;
+
 
     // Use this for initialization
     void Start () {
-        r = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 	    Events.instance.AddListener<TimerTick>(tick);
 

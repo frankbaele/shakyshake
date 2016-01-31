@@ -32,7 +32,7 @@ public class KingMovement : MonoBehaviour {
         {
             Debug.Log("King movement");
             HOTween.To(transform, e.interval * 2, new TweenParms()
-                .Prop("translation", new Vector3(0, 0, pivot.rotation.eulerAngles.z ))
+                .Prop("rotation", new Vector3(0, 0, gameObject.transform.rotation.eulerAngles.z + (22.5f * (Random.Range(0, 3) - 1))))
                 .Ease(EaseType.EaseOutBounce));
         }
     }
