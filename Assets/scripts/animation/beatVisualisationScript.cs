@@ -6,7 +6,6 @@ public class beatVisualisationScript : MonoBehaviour {
 	public Sprite sprite_passive;
 	public Sprite sprite_color_1;
 	public Sprite sprite_color_2;
-    private bool isVisible;
     private Vector2 position;
 	private Renderer r;
 
@@ -25,9 +24,13 @@ public class beatVisualisationScript : MonoBehaviour {
 	}
 
     void tick(TimerTick e)
-    {
+	{
+		GetComponent<SpriteRenderer>().sprite = sprite_passive;
 	    if(e.note%2 == 0){
-
+		    GetComponent<SpriteRenderer>().sprite = sprite_color_1;
+	    }
+	    if(e.note%4 == 0){
+		    GetComponent<SpriteRenderer>().sprite = sprite_color_2;
 	    }
 
     }
