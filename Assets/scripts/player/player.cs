@@ -16,19 +16,13 @@ public class Player : MonoBehaviour
 	Queue<int[]> queue = new Queue<int[]>();
 
     //Player progression
-    private int level = OUTER_CIRCLE;
-    private static int OUTER_CIRCLE = 1;
-    private static int MIDDLE_CIRCLE = 2;
-    private static int INNER_CIRCLE = 3;
+	public int points = 0;
 
     void Start()
 	{
 		Events.instance.AddListener<TimerTick>(tick);
 		shaman = transform.Find("Shaman").gameObject;
 		// quickly add 4 empty commands
-		queue.Enqueue(new int[0]);
-		queue.Enqueue(new int[0]);
-		queue.Enqueue(new int[0]);
 		queue.Enqueue(new int[0]);
 	}
 	
@@ -46,8 +40,9 @@ public class Player : MonoBehaviour
 	void checkInput(){
 		if(Input.anyKey)
 		{
-			if (Input.GetButtonDown("Up_" + id))
+			if (Input.GetButtonDown("Up_" + id)){
 				inputArray[idxUp] = true;
+			}
 			if (Input.GetButtonDown("Down_" + id))
 				inputArray[idxDown] = true;
 			if (Input.GetButtonDown("Left_" + id))
@@ -84,7 +79,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void addCommand(float wait){
-		var rNumbers = randomNumbers(1);
+		var rNumbers = randomNumbers(2);
 		var rStrings = stringInput(rNumbers);
 		for(int i = 0; i < rStrings.Length; i++){
 			var x = 0;
@@ -135,7 +130,6 @@ public class Player : MonoBehaviour
 
 		var firstElement = queue.Dequeue();
 		bool correct = true;
-		
 		for(var i = 0; i < firstElement.Length; i++)
 		{
 			if(!inputArray[firstElement[i]]){
@@ -143,15 +137,23 @@ public class Player : MonoBehaviour
 			}
 			inputArray[firstElement[i]] = false;
 		}
+		
 		for(var i = 0; i < inputArray.Length; i++)
 		{
 			if(!inputArray[i]){
-				correct = false;
+				//correct = false;
 			}
 		}
-		//Debug.Log(correct);
-		resetInput();
-		
+		// otherwise no action is requiered
+		if(firstElement.Length > 0){
+			if(correct){
+				points++;
+			} else {
+				points--;
+				points = points < 0 ? 0:points;
+			}
+		}
+		resetInput();	
 	}
 	
 	void tick(TimerTick e){
@@ -161,8 +163,8 @@ public class Player : MonoBehaviour
 		}
 	}
 
-    public int getCurrentLevel()
+	public int getCurrentPoints()
     {
-        return level;
+	    return points;
     }
 }

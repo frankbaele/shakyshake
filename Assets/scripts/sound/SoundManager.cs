@@ -62,7 +62,7 @@ public class SoundManager : MonoBehaviour {
         bool result = false; 
         for(int i = 0; i < playerObjs.Length; i++)
         {
-           result = playerObjs[i].GetComponent<Player>().getCurrentLevel() >= level;
+	        //result = playerObjs[i].GetComponent<Player>().getCurrentLevel() >= level;
         }
 
         return result;
