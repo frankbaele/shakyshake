@@ -5,6 +5,7 @@ using Holoville.HOTween;
 public class KingMovement : MonoBehaviour {
 
     public int player;
+    private Player playerScript;
 
     private Animator anim;
     private bool correctInput;
@@ -29,7 +30,7 @@ public class KingMovement : MonoBehaviour {
         Events.instance.AddListener<TimerTick>(tick);
         pivot = transform.parent.transform;
         beatTurningScript = transform.parent.GetComponentInParent<beatTurning>();
-        points = GameObject.Find("Player" + player).GetComponent<Player>().points;
+        playerScript = GameObject.Find("Player" + player).GetComponent<Player>();
     }
 	
 	// Update is called once per frame
@@ -39,6 +40,7 @@ public class KingMovement : MonoBehaviour {
 
     void tick(TimerTick e)
     {
+        points = playerScript.points;
         Debug.Log("points: " + points);
         //if (Input.GetKey(KeyCode.Space) && e.note % 2 == 0) // for testing
         if (correctInput && e.note%2 == 0)
@@ -50,6 +52,9 @@ public class KingMovement : MonoBehaviour {
             {
                 level = MIDDLE_CIRCLE;
                 //MOVE TO MIDDLE CIRCLE
+                HOTween.To(transform.parent, e.interval * 2, new TweenParms()
+                .Prop("localRotation", new Vector3(0, 0, gameObject.transform.rotation.eulerAngles.z + (22.5f * 0)))
+                .Ease(EaseType.EaseInBack));
             }
             else if (level == MIDDLE_CIRCLE && points == 32)
             {
