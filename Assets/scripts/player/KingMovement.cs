@@ -4,7 +4,7 @@ using Holoville.HOTween;
 
 public class KingMovement : MonoBehaviour {
 
-    public GameObject player;
+    public int player;
 
     private Animator anim;
     private bool correctInput;
@@ -29,7 +29,7 @@ public class KingMovement : MonoBehaviour {
         Events.instance.AddListener<TimerTick>(tick);
         pivot = transform.parent.transform;
         beatTurningScript = transform.parent.GetComponentInParent<beatTurning>();
-        points = player.GetComponent<Player>().points;
+        points = GameObject.Find("Player" + player).GetComponent<Player>().points;
     }
 	
 	// Update is called once per frame
@@ -45,11 +45,23 @@ public class KingMovement : MonoBehaviour {
         {
             randomDirection = beatTurningScript.randomDirection;
             Debug.Log("King movement: randomDirection: " + randomDirection + ", euler z: " + transform.rotation.eulerAngles.z);
-            transform.rotation = transform.rotation ;
+
+            if (level == OUTER_CIRCLE && points == 16)
+            {
+                level = MIDDLE_CIRCLE;
+                //MOVE TO MIDDLE CIRCLE
+            }
+            else if (level == MIDDLE_CIRCLE && points == 32)
+            {
+                level = INNER_CIRCLE;
+                //MOVE TO INNER CIRCLE
+            }
+
             HOTween.To(transform.parent, e.interval * 2, new TweenParms()
                 .Prop("localRotation", new Vector3(0, 0, gameObject.transform.rotation.eulerAngles.z + (22.5f * 0)))
                // .Prop("position", new Vector3(transform.position.x + dX , transform.position.y + dY, transform.position.z))
                 .Ease(EaseType.EaseInBack));
+
         }
     }
 
