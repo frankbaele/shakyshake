@@ -56,9 +56,9 @@ public class KingMovement : MonoBehaviour {
             {
                 level = MIDDLE_CIRCLE;
                 //MOVE TO MIDDLE CIRCLE
-                HOTween.To(transform.parent, e.interval * 2, new TweenParms()
-                .Prop("localRotation", new Vector3(0, 0, gameObject.transform.rotation.eulerAngles.z + (22.5f * 0)))
-                .Ease(EaseType.EaseInBack));
+               // HOTween.To(transform.parent, e.interval * 2, new TweenParms()
+               // .Prop("localRotation", new Vector3(0, 0, gameObject.transform.rotation.eulerAngles.z + (22.5f * 0)))
+               // .Ease(EaseType.EaseInBack));
             }
             else if (level == MIDDLE_CIRCLE && points == 32)
             {
