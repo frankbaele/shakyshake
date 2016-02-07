@@ -60,9 +60,7 @@ public class KingMovement : MonoBehaviour {
                 //MOVE TO MIDDLE CIRCLE
                 Vector3 target = transform.localPosition - new Vector3(-2 , 0, 0);
 
-                HOTween.To(transform, e.interval * 2, new TweenParms()
-                .Prop("localPosition", target)
-                .Ease(EaseType.EaseInBack));
+                tweenTranslation(e.interval, target);
             }
             else if (level == MIDDLE_CIRCLE && points == 32)
             {
@@ -70,14 +68,18 @@ public class KingMovement : MonoBehaviour {
                 //MOVE TO INNER CIRCLE
 
                 Vector3 target = transform.localPosition - new Vector3(-2, 0, 0);
-
-                HOTween.To(transform, e.interval * 2, new TweenParms()
-                .Prop("localPosition", target)
-                .Ease(EaseType.EaseInBack));
+                tweenTranslation(e.interval, target);
             }
-                tweenRotation(e.interval);
+            tweenRotation(e.interval);
 
         }
+    }
+
+    private void tweenTranslation(float interval, Vector3 target)
+    {
+        HOTween.To(transform, interval * 2, new TweenParms()
+                        .Prop("localPosition", target)
+                        .Ease(EaseType.EaseInBack));
     }
 
     private void tweenRotation(float interval)
@@ -88,5 +90,4 @@ public class KingMovement : MonoBehaviour {
             // .Prop("position", new Vector3(transform.position.x + dX , transform.position.y + dY, transform.position.z))
             .Ease(EaseType.EaseInBack));
     }
-
 }
