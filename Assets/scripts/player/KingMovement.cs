@@ -52,17 +52,22 @@ public class KingMovement : MonoBehaviour {
         if (correctInput && e.note%2 == 0)
         {
             randomDirection = beatTurningScript.randomDirection;
-            Debug.Log("King movement: randomDirection: " + randomDirection + ", euler z: " + transform.rotation.eulerAngles.z);
+            //Debug.Log("King movement: randomDirection: " + randomDirection + ", euler z: " + transform.rotation.eulerAngles.z);
 
-            if (level == OUTER_CIRCLE && points == 16)
+            if (level == OUTER_CIRCLE && points >= 16)
             {
+                Debug.Log("Good! Go to the middle circle.");
                 level = MIDDLE_CIRCLE;
                 //MOVE TO MIDDLE CIRCLE
                 Vector3 target = transform.localPosition - new Vector3(-2 , 0, 0);
 
+             /*   HOTween.To(transform, e.interval * 2, new TweenParms()
+                       .Prop("localPosition", target)
+                       .Ease(EaseType.EaseInOutElastic)); */
+
                 tweenTranslation(e.interval, target);
             }
-            else if (level == MIDDLE_CIRCLE && points == 32)
+            else if (level == MIDDLE_CIRCLE && points >= 32)
             {
                 level = INNER_CIRCLE;
                 //MOVE TO INNER CIRCLE
@@ -75,19 +80,21 @@ public class KingMovement : MonoBehaviour {
         }
     }
 
+    // Moves player to the next circle.
     private void tweenTranslation(float interval, Vector3 target)
     {
         HOTween.To(transform, interval * 2, new TweenParms()
                         .Prop("localPosition", target)
-                        .Ease(EaseType.EaseInBack));
+                        .Ease(EaseType.EaseInOutElastic));
     }
 
+    // Makes player jump to the next position on the same circle.
     private void tweenRotation(float interval)
     {
         //HOTween.Complete(transform.parent);
         HOTween.To(transform.parent, interval * 2, new TweenParms()
             .Prop("localRotation", new Vector3(0, 0, (Mathf.Round((transform.localRotation.eulerAngles.z - 11.25f) /22.5f) - randomDirection) * 22.5f + 11.25f))
             // .Prop("position", new Vector3(transform.position.x + dX , transform.position.y + dY, transform.position.z))
-            .Ease(EaseType.EaseInBack));
+            .Ease(EaseType.EaseInOutBounce));
     }
 }
